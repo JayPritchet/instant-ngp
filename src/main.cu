@@ -194,8 +194,9 @@ int main(int argc, char** argv) {
 			testbed.load_snapshot(snapshot_path.str());
 			testbed.m_train = false;
 		} else {
-			// Otherwise, load the network config and prepare for training
+			/*
 			fs::path network_config_path = fs::path{"configs"}/mode_str;
+			// Otherwise, load the network config and prepare for training
 			if (network_config_flag) {
 				auto network_config_str = get(network_config_flag);
 				if ((network_config_path/network_config_str).exists()) {
@@ -206,6 +207,8 @@ int main(int argc, char** argv) {
 			} else {
 				network_config_path = network_config_path/"base.json";
 			}
+			*/
+			fs::path network_config_path = get(network_config_flag);
 
 			if (!network_config_path.exists()) {
 				tlog::error() << "Network config path " << network_config_path << " does not exist.";

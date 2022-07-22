@@ -100,6 +100,7 @@ public:
 
 	virtual ~NerfNetwork() { }
 
+//---------------------------------------------------Changed Codes-----------------------------------------------------
 	void inference_mixed_precision_impl(cudaStream_t stream, const tcnn::GPUMatrixDynamic<float>& input, tcnn::GPUMatrixDynamic<T>& output, bool use_inference_params = true) override {
 		uint32_t batch_size = input.n();
 		tcnn::GPUMatrixDynamic<T> density_network_input{m_pos_encoding->padded_output_width(), batch_size, stream, m_pos_encoding->preferred_output_layout()};
@@ -135,11 +136,11 @@ public:
 			output.data() + 3 * (output.layout() == tcnn::AoS ? 1 : batch_size)
 		);
 	}
-
+//---------------------------------------------------Changed Codes-----------------------------------------------------
+	
 	uint32_t padded_density_output_width() const {
 		return m_density_network->padded_output_width();
 	}
-
 	std::unique_ptr<tcnn::Context> forward_impl(cudaStream_t stream, const tcnn::GPUMatrixDynamic<float>& input, tcnn::GPUMatrixDynamic<T>* output = nullptr, bool use_inference_params = false, bool prepare_input_gradients = false) override {
 		// Make sure our temporary buffers have the correct size for the given batch size
 		uint32_t batch_size = input.n();
